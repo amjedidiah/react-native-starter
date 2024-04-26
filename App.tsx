@@ -1,20 +1,20 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
+
+import AppNavigator from "@/app-navigator";
+import useAppFonts from "@/hooks/use-app-fonts";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const { isFontsLoaded, onLayoutRootView } = useAppFonts();
+  if (!isFontsLoaded) return null;
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View onLayout={onLayoutRootView} className="flex-1">
+      <AppNavigator />
       <StatusBar style="auto" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
